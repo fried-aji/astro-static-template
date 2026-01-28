@@ -1,0 +1,46 @@
+---
+import { Icon } from 'astro-icon/components'
+import AstroLink from '@/components/helper/AstroLink.astro'
+import { globalNav } from '@/data/global/globalNav.js'
+---
+
+<header id='header' class:list={['l-header']}>
+  <AstroLink href='/'>
+    <Icon name='icon_sample' role='img' aria-label='Astro' width={40} height={40} />
+  </AstroLink>
+  <nav class='nav' aria-label='グローバルナビゲーション'>
+    <ul class='list'>
+      {
+        globalNav.map((item) => (
+          <li>
+            <AstroLink href={item.href}>{item.title}</AstroLink>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<style lang='scss' is:global>
+  // スタイルは一例です
+  .l-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    width: 100%;
+    padding: 10px 16px;
+
+    @include overMD {
+      padding: 10px 20px;
+    }
+
+    .list {
+      display: flex;
+      gap: 20px;
+      justify-self: flex-end;
+    }
+  }
+</style>

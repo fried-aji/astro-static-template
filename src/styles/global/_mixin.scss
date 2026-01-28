@@ -1,0 +1,171 @@
+// breakpoints
+$screens-xxxl: 1920;
+$screens-xxl: 1440;
+$screens-xl: 1280;
+$screens-lg: 1024;
+$screens-md: 768;
+$screens-xs: 400;
+
+@mixin underMD {
+  @media screen and (max-width: #{$screens-md - 1}px) {
+    @content;
+  }
+}
+
+@mixin overMD {
+  @media screen and (min-width: #{$screens-md}px) {
+    @content;
+  }
+}
+
+@mixin underXS {
+  @media screen and (max-width: #{$screens-xs - 1}px) {
+    @content;
+  }
+}
+
+@mixin overXS {
+  @media screen and (min-width: #{$screens-xs}px) {
+    @content;
+  }
+}
+
+@mixin underLG {
+  @media screen and (max-width: #{$screens-lg - 1}px) {
+    @content;
+  }
+}
+
+@mixin overLG {
+  @media screen and (min-width: #{$screens-lg}px) {
+    @content;
+  }
+}
+
+@mixin underXL {
+  @media screen and (max-width: #{$screens-xl - 1}px) {
+    @content;
+  }
+}
+
+@mixin overXL {
+  @media screen and (min-width: #{$screens-xl}px) {
+    @content;
+  }
+}
+
+@mixin underXXL {
+  @media screen and (max-width: #{$screens-xxl - 1}px) {
+    @content;
+  }
+}
+
+@mixin overXXL {
+  @media screen and (min-width: #{$screens-xxl}px) {
+    @content;
+  }
+}
+
+@mixin underXXXL {
+  @media screen and (max-width: #{$screens-xxxl - 1}px) {
+    @content;
+  }
+}
+
+@mixin overXXXL {
+  @media screen and (min-width: #{$screens-xxxl}px) {
+    @content;
+  }
+}
+
+@mixin mintoMD {
+  @media screen and (width >= 360px) and (max-width: #{$screens-md - 1}px) {
+    @content;
+  }
+}
+
+@mixin XStoMD {
+  @media screen and (width >= 415px) and (max-width: #{$screens-md - 1}px) {
+    @content;
+  }
+}
+
+@mixin MDtoLG {
+  @media screen and (min-width: #{$screens-md}px) and (max-width: #{$screens-lg - 1}px) {
+    @content;
+  }
+}
+
+@mixin MDtoXL {
+  @media screen and (min-width: #{$screens-md}px) and (max-width: #{$screens-xl - 1}px) {
+    @content;
+  }
+}
+
+@mixin MDtoXXL {
+  @media screen and (min-width: #{$screens-md}px) and (max-width: #{$screens-xxl - 1}px) {
+    @content;
+  }
+}
+
+@mixin MDtoXXXL {
+  @media screen and (min-width: #{$screens-md}px) and (width <= 1919px) {
+    @content;
+  }
+}
+
+@mixin LGtoXL {
+  @media screen and (min-width: #{$screens-lg}px) and (max-width: #{$screens-xl - 1}px) {
+    @content;
+  }
+}
+
+@mixin LGtoXXL {
+  @media screen and (min-width: #{$screens-lg}px) and (max-width: #{$screens-xxl - 1}px) {
+    @content;
+  }
+}
+
+@mixin LGtoXXXL {
+  @media screen and (min-width: #{$screens-lg}px) and (max-width: #{$screens-xxxl - 1}px) {
+    @content;
+  }
+}
+
+@mixin XLtoXXL {
+  @media screen and (min-width: #{$screens-xl}px) and (max-width: #{$screens-xxl - 1}px) {
+    @content;
+  }
+}
+
+@mixin XLtoXXXL {
+  @media screen and (min-width: #{$screens-xl}px) and (max-width: #{$screens-xxxl - 1}px) {
+    @content;
+  }
+}
+
+@mixin XXLtoXXXL {
+  @media screen and (min-width: #{$screens-xxl}px) and (max-width: #{$screens-xxxl - 1}px) {
+    @content;
+  }
+}
+
+// hover
+@mixin hover {
+  &:focus-visible {
+    @content;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// prefers-reduced-motion
+@mixin reducedMotion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
+}

@@ -1,0 +1,112 @@
+# 🚀 astro-static-template
+
+## 🌴 環境情報
+
+[Astro](https://astro.build/)
+
+## 👷 環境準備
+
+### 1. npmインストール
+
+```shell
+npm i
+```
+
+### 2. Viteサーバー立ち上げ
+
+```shell
+npm run dev
+```
+
+### 3. VS Code拡張機能の有効化
+
+`.vscode/extensions.json`に記述した拡張機能をリコメンドとして表示するようにしています。
+無効または未インストールの場合は、各自有効にしておいてください。
+
+## 💻 実装
+
+### 1. ファイル構成
+
+```shell
+├── integration/　#拡張機能
+├── public/　#静的アセット
+├── src/　#作業ディレクトリ
+│   ├── assets/　#最適化用アセット
+│   ├── components/　#共通コンポーネント
+│   ├── data/　# 共通データ。Content Collectionsなど
+│   ├── icons/ 　#SVG（Astro Icon）
+│   ├── layouts/ #共通レイアウト
+│   ├── libs/ #SSG処理関連
+│   └── pages/　#各ページのHTML
+│   ├── styles/ #css（sass）
+│   ├── scripts/ #js（クライアントサイド）
+└── astro.config.ts　#開発環境設定ファイル
+```
+
+### 2. 画像最適化
+
+以下のコマンドで`src/assets/img`配下の画像を最適化し、`/public/img`に出力します。
+
+```shell
+npm run compress:img
+```
+
+`npm run dev`中に自動で最適化を実行したい場合は以下を実行します。
+
+```shell
+npm run dev:watch
+```
+
+### 3. 静的アセット
+
+favicon、OGPなどの静的アセットは`public/static`で管理しています。
+
+### 4. SVG
+
+[Astro Icon](https://www.astroicon.dev/)を使用することでインライン上でSVGファイルを簡単に出力できます。
+なお、Iconコンポーネントで参照するSVGファイルは`src/icons`に格納してください。
+
+```js
+---
+import { Icon } from "astro-icon";
+---
+
+<Icon name='icon_sample' />
+
+// => <svg data-icon="icon_sample"><symbol id="ai:local:icon_sample" viewBox="...">...</symbol><use href="#ai:local:icon_sample"></use></svg>
+```
+
+### 5. CSS
+
+`astro.config`の設定により、`.astro`、`.scss`のどちらにスタイルを記述してもビルド時に`css/main.css`として出力するようにしています。
+ただし、`.astro`にスタイルを書く場合は`style`タグに`is:global`をつけるようにしてください。
+
+```jsx
+<style lang="scss" is:global>
+  //...
+</style>
+```
+
+### 6. JavaScript（クライアントサイド）
+
+フレームワークの縛りはないため、各自使いやすいものを選定してください。
+（TypeScriptでなくても良いです）
+
+### 7. 動的ページ生成
+
+ブログやニュースの実装など、動的にページを生成する必要がある場合に備え、`src/content.config.ts`に[Content Collections](https://docs.astro.build/en/guides/content-collections/)の環境を準備しています。
+（※日本語ドキュメントは情報が古い可能性があるため、英語ドキュメントの閲覧を推奨）
+
+### 🏠 ビルド
+
+以下のコマンドで`dist/`に出力します。
+
+```shell
+npm run build
+```
+
+HTMLを整形して出力したい場合は以下のコマンドを実行します。
+
+```shell
+npm run build:beautify
+```

@@ -1,0 +1,58 @@
+---
+import AstroLink from '@/components/helper/AstroLink.astro'
+
+// props
+interface BreadCrumbItem {
+  title: string
+  href?: string
+}
+
+interface Props {
+  class?: string
+  breadCrumbList: (BreadCrumbItem | string)[]
+}
+
+const {
+  //
+  class: className,
+  breadCrumbList = [],
+  ...props
+} = Astro.props
+
+const currentPath = Astro.url.pathname
+const pathArray = currentPath
+  .split('/')
+  .map((current, index) => {
+    return current === '' && index === 0 ? 'トップ' : current
+  })
+  .filter((current) => {
+    return current !== ''
+  })
+const minLength = Math.min(pathArray.length, breadCrumbList.length + 1)
+const renderPath = pathArray.slice(0, minLength)
+---
+
+<nav id='breadcrumb' class:list={['c-breadcrumb', className]} {...props} aria-label='パンくずリスト'>
+  <ol itemscope itemtype='https://schema.org/BreadcrumbList'>
+    {
+      renderPath.map((path, index) => {
+        const breadCrumbItem = breadCrumbList[index - 1]
+        const href =
+          breadCrumbItem && typeof breadCrumbItem === 'object' && breadCrumbItem.href
+            ? breadCrumbItem.href
+            : `${index === 0 ? '/' : `/${pathArray.slice(1, index + 1).join('/')}/`}`
+        const title =
+          breadCrumbItem && typeof breadCrumbItem === 'object' ? breadCrumbItem.title : breadCrumbItem || path
+
+        return (
+          <li itemprop='itemListElement' itemscope itemtype='https://schema.org/ListItem'>
+            <AstroLink href={href} itemprop='item'>
+              <span itemprop='name'>{title}</span>
+              <meta itemprop='position' content={`${index + 1}`} />
+            </AstroLink>
+          </li>
+        )
+      })
+    }
+  </ol>
+</nav>

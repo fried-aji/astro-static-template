@@ -1,0 +1,67 @@
+@use '@/styles/global/index' as *;
+
+*,
+::before,
+::after {
+  // https: //zenn.dev/kagan/articles/css-chrome-aspect-ratio
+  min-inline-size: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:focus-within {
+    scroll-behavior: smooth;
+  }
+}
+
+h1 {
+  margin-block: unset;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  padding: unset;
+  border: unset;
+}
+
+input,
+select,
+optgroup,
+textarea {
+  padding: unset;
+  margin: unset;
+  appearance: unset;
+  outline: unset;
+  background-color: unset;
+  border: unset;
+}
+
+dialog {
+  margin: unset;
+  color: unset;
+  background-color: unset;
+}
+
+summary {
+  display: block;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

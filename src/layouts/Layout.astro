@@ -1,0 +1,57 @@
+---
+// css
+import '@/styles/main.scss'
+
+// components
+import Header from '@/components/global/Header.astro'
+import Footer from '@/components/global/Footer.astro'
+
+// props
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  //
+  title = 'astro-static-template',
+  description = 'A static site template using Astro',
+} = Astro.props
+
+const { site } = Astro
+const ogImage = `${site}static/global/ogp.jpg`
+const currentPath = Astro.url.pathname
+const canonicalURL = new URL(currentPath, Astro.site)
+const lang = Astro.currentLocale
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='description' content={description} />
+    <title>{title}</title>
+    <meta property='og:site_name' content={title} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={description} />
+    <meta property='og:image' content={ogImage} />
+    <meta property='og:type' content={currentPath === '/' ? 'website' : 'article'} />
+    <meta property='og:locale' content={lang === 'ja' ? 'ja_JP' : 'en_US'} />
+    <meta property='og:url' content={Astro.url} />
+    <link rel='canonical' href={canonicalURL} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='twitter:image' content={ogImage} />
+    {/* Favicon */}
+    <link rel='icon' href='/static/favicon.ico' sizes='any' />
+    <link rel='icon' type='image/svg+xml' href='/static/favicon.svg' />
+    <link rel='apple-touch-icon' href='/static/apple-touch-icon.png' />
+    {/* script */}
+    <script src='../scripts/main.ts'></script>
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>

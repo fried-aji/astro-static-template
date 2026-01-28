@@ -1,0 +1,35 @@
+@use 'sass:math';
+@use './mixin' as *;
+
+@function vw($px, $ref) {
+  $rem: math.div($px, 16) * 1rem;
+
+  @if $ref == 'xl' {
+    @return math.div($px, $screens-xl) * 100vw;
+  } @else if $ref == 'xlmin' {
+    @return min(vw($px, $screens-xl), rem($px));
+  } @else if $ref == 'xlmax' {
+    @return max(vw($px, $screens-xl), rem($px));
+  } @else if $ref == 'lg' {
+    @return math.div($px, $screens-lg) * 100vw;
+  } @else if $ref == 'md' {
+    @return math.div($px, $screens-md) * 100vw;
+  } @else if $ref == 'xs' {
+    @return math.div($px, $screens-xs) * 100vw;
+  } @else {
+    @return math.div($px, $ref) * 100vw;
+  }
+}
+
+// px => rem
+@function rem($px) {
+  @return math.div($px, 16) * 1rem;
+}
+
+// カスタムプロパティで定義したHEX値に不透明度を指定（※iOS 16.2以上）
+@function color-alpha($color, $alpha) {
+  $alpha-max: $alpha * 100%;
+  $alpha-min: (1 - $alpha) * 100%;
+
+  @return color-mix(in srgb, $color $alpha-max, transparent $alpha-min);
+}

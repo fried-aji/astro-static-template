@@ -1,0 +1,21 @@
+---
+import { budouxProcess } from '@/libs/utility/bodoux'
+
+interface Props {
+  class?: string
+  tagName?: string
+}
+
+const {
+  //
+  class: className,
+  tagName = 'span',
+  ...props
+} = Astro.props
+
+const TagName = tagName
+const slotContent = await Astro.slots.render('default')
+const parsed = budouxProcess(slotContent)
+---
+
+<TagName class:list={['u-phrase-auto', className]} set:html={parsed} {...props} />

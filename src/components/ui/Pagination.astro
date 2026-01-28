@@ -1,0 +1,56 @@
+---
+import type { Page } from 'astro'
+import { getPaginationData } from '@/libs/utility/pagination'
+import AstroLink from '@/components/helper/AstroLink.astro'
+
+interface Props {
+  // https://docs.astro.build/en/guides/routing/#the-page-prop
+  page: Page
+  maxPage?: number
+  rangePage?: number
+  slug?: string
+  class?: string
+}
+
+const {
+  //
+  page,
+  maxPage = 5,
+  rangePage = 2,
+  slug,
+  class: className,
+  ...props
+} = Astro.props
+
+// デフォルトはcontent.config.tsで定義したコレクション名
+const baseSlug = slug || page.data[0].collection
+const { pageNumbers } = getPaginationData(page, maxPage, rangePage)
+---
+
+{
+  (page.url.prev || page.url.next) && (
+    <nav class:list={['c-pagination', className]} aria-label='ページナビゲーション' {...props}>
+      {page.url.prev && (
+        <AstroLink href={`${page.url.prev}`}>
+          <span>前のページ</span>
+        </AstroLink>
+      )}
+      {pageNumbers.map((pageNum) => (
+        <AstroLink
+          href={pageNum === 1 ? `/${baseSlug}/` : `/${baseSlug}/${pageNum}/`}
+          class:list={[
+            //
+            '',
+          ]}
+        >
+          {pageNum >= 10 ? pageNum : `0${pageNum}`}
+        </AstroLink>
+      ))}
+      {page.url.next && (
+        <AstroLink href={`${page.url.next}`}>
+          <span>次のページ</span>
+        </AstroLink>
+      )}
+    </nav>
+  )
+}

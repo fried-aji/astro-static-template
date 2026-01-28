@@ -1,0 +1,46 @@
+@use '@/styles/global/index' as *;
+
+/* ------------------------------------
+Typography
+------------------------------------ */
+
+/* <wbr>で自動折り返し（https://ics.media/entry/241105/） */
+$u-phrase-values: (
+  'phrase-auto': (
+    'word-break': keep-all,
+    'overflow-wrap': anywhere,
+  ),
+);
+
+@each $name, $values in $u-phrase-values {
+  .u-#{$name} {
+    @each $property, $value in $values {
+      #{$property}: #{$value};
+    }
+  }
+
+  .u-\!#{$name} {
+    @each $property, $value in $values {
+      #{$property}: #{$value} !important;
+    }
+  }
+}
+
+@each $name, $values in $u-phrase-values {
+  // 767px以上
+  .u-md\:#{$name} {
+    @include overMD {
+      @each $property, $value in $values {
+        #{$property}: #{$value};
+      }
+    }
+  }
+
+  .u-md\:\!#{$name} {
+    @include overMD {
+      @each $property, $value in $values {
+        #{$property}: #{$value} !important;
+      }
+    }
+  }
+}

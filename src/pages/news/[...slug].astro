@@ -1,0 +1,40 @@
+---
+// ※以下はサンプルです。プロジェクトに合わせて適宜変更してください。
+import type { CollectionEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
+import Layout from '@/layouts/Layout.astro'
+import { formatDate } from '@/libs/utility/formatDate'
+import { render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const newsEntries = await getCollection('news')
+  return newsEntries.map((entry: CollectionEntry<'news'>) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }))
+}
+
+const { entry } = Astro.props
+const { Content } = await render(entry)
+---
+
+<Layout title={entry.data.title} description={entry.data.description || ''}>
+  <article class='p-news-detail'>
+    <header>
+      <time datetime={formatDate(`${entry.data.pubDate}`, 'iso')}>
+        {formatDate(`${entry.data.pubDate}`, 'dot')}
+      </time>
+      <h1>{entry.data.title}</h1>
+    </header>
+    <div>
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style lang='scss' is:global>
+  .p-news-detail {
+    padding-inline: 20px;
+    margin-top: 40px;
+  }
+</style>

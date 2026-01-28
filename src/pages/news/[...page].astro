@@ -1,0 +1,61 @@
+---
+// ※以下はサンプルです。プロジェクトに合わせて適宜変更してください。
+import type { GetStaticPathsOptions } from 'astro'
+import { getCollection } from 'astro:content'
+import { formatDate } from '@/libs/utility/formatDate'
+import Layout from '@/layouts/Layout.astro'
+import AstroLink from '@/components/helper/AstroLink.astro'
+import Pagination from '@/components/ui/Pagination.astro'
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const allNews = await getCollection('news')
+  const newsEntries = allNews.toSorted(
+    (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+  )
+  return paginate(newsEntries, { pageSize: 2 })
+}
+
+const { page } = Astro.props
+---
+
+<Layout>
+  <div class='p-news'>
+    <div class='list'>
+      {
+        page.data.map((post) => (
+          <article>
+            <AstroLink href={`/news/${post.id}/`}>
+              <time datetime={formatDate(`${post.data.pubDate}`, 'iso')}>
+                {
+                  //
+                  formatDate(`${post.data.pubDate}`, 'dot')
+                }
+              </time>
+              <h2>{post.data.title}</h2>
+            </AstroLink>
+          </article>
+        ))
+      }
+    </div>
+    <Pagination page={page} class='pagination' />
+  </div>
+</Layout>
+
+<style lang='scss' is:global>
+  .p-news {
+    padding-inline: 20px;
+
+    .list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 40px;
+    }
+
+    .pagination {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 48px;
+    }
+  }
+</style>

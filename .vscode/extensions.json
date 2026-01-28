@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    //
+    "astro-build.astro-vscode",
+    "editorconfig.editorconfig",
+    "esbenp.prettier-vscode",
+    "yusukehirao.vscode-markuplint",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "syler.sass-indented",
+    "vunguyentuan.vscode-css-variables"
+  ],
+  "unwantedRecommendations": []
+}

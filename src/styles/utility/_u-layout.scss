@@ -1,0 +1,52 @@
+@use '@/styles/global/index' as *;
+
+/* ------------------------------------
+Layout
+------------------------------------ */
+
+/* screen reader only */
+.u-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
+}
+
+/* display */
+$u-display-values: (
+  'hidden': none,
+  'contents': contents,
+  'inline': inline,
+  'inline-block': inline-block,
+  'block': block,
+);
+
+@each $name, $value in $u-display-values {
+  .u-#{$name} {
+    display: #{$value};
+  }
+
+  .u-\!#{$name} {
+    display: #{$value} !important;
+  }
+}
+
+@each $name, $value in $u-display-values {
+  // 767px以上
+  .u-md\:#{$name} {
+    @include overMD {
+      display: #{$value};
+    }
+  }
+
+  .u-md\:\!#{$name} {
+    @include overMD {
+      display: #{$value} !important;
+    }
+  }
+}
