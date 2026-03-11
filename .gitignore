@@ -25,11 +25,9 @@ pnpm-debug.log*
 
 # Claude Code
 .claude/
-CLAUDE.md
 
 # Gemini CLI
 .gemini/
-GEMINI.md
 
 # Serena MCP
 .serena

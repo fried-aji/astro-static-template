@@ -161,7 +161,8 @@ const config: Config = {
               },
             },
           },
-          reason: 'A document must not contain a details element that is a descendant of another details element in the same details name group.',
+          reason:
+            'A document must not contain a details element that is a descendant of another details element in the same details name group.',
         },
       },
     },
@@ -213,10 +214,6 @@ const config: Config = {
     {
       selector: 'AstroLink',
       as: 'a',
-    },
-    {
-      selector: 'SplitText',
-      as: 'span',
     },
   ],
   overrideMode: 'merge',

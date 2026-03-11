@@ -33,9 +33,6 @@ export default defineConfig({
     mdx(),
     icon(),
   ],
-  experimental: {
-    liveContentCollections: true,
-  },
   vite: {
     plugins: [
       //
@@ -44,24 +41,37 @@ export default defineConfig({
     // https://ja.vite.dev/config/build-options.html
     build: {
       assetsInlineLimit: 0,
-      // https://rollupjs.org/configuration-options/
-      rollupOptions: {
-        output: {
-          entryFileNames: 'js/main.js',
-          assetFileNames: (assetInfo) => {
-            const extType = assetInfo.names[0]?.split('.').at(-1);
-            if (extType && /css|scss|sass/i.test(extType)) {
-              return `css/[name].css`;
-            }
-            return `[extname]/[name][extname]`;
+    },
+    environments: {
+      prerender: {
+        build: {
+          rollupOptions: {
+            output: {
+              assetFileNames: (assetInfo) => {
+                const extType = assetInfo.names[0]?.split('.').at(-1);
+                if (extType && /css|scss|sass/i.test(extType)) {
+                  return `css/[name].css`;
+                }
+                return `[extname]/[name][extname]`;
+              },
+              manualChunks: (id) => {
+                if (id.includes('main.scss')) {
+                  return 'main.css';
+                }
+                if (id.includes('.astro?astro&type=style')) {
+                  return 'main.css';
+                }
+              },
+            },
           },
-          manualChunks: (id) => {
-            if (id.includes('main.scss')) {
-              return 'main.css';
-            }
-            if (id.includes('.astro?astro&type=style')) {
-              return 'main.css';
-            }
+        },
+      },
+      client: {
+        build: {
+          rollupOptions: {
+            output: {
+              entryFileNames: 'js/main.js',
+            },
           },
         },
       },

@@ -1,4 +1,4 @@
-/** @type {import('stylelint').Config} */
+import type { Config } from 'stylelint';
 
 export default {
   extends: [
@@ -82,7 +82,7 @@ export default {
     'custom-property-pattern': [
       /^_?([a-z][a-z0-9]*)(-[a-z0-9]+)*$/,
       {
-        message: (name) => `Expected custom property name "${name}" to be kebab-case`,
+        message: (name: string) => `Expected custom property name "${name}" to be kebab-case`,
       },
     ],
     /* クラス命名ルールを無効化 */
@@ -132,4 +132,4 @@ export default {
       },
     },
   ],
-};
+} satisfies Config;

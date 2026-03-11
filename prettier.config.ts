@@ -1,8 +1,6 @@
-/**
- * @see https://prettier.io/docs/configuration
- * @type {import('prettier').Config}
- */
-export default {
+import { type Config } from 'prettier';
+
+const config: Config = {
   plugins: [
     //
     'prettier-plugin-astro',
@@ -18,3 +16,5 @@ export default {
     },
   ],
 };
+
+export default config;

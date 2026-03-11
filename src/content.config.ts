@@ -2,8 +2,9 @@
  * https://docs.astro.build/en/guides/content-collections/
  */
 
-import { z, defineCollection } from 'astro:content';
-import { glob, file } from 'astro/loaders';
+import { z } from 'astro/zod';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const news = defineCollection({
   loader: glob({ pattern: '*.mdx', base: './src/data/news' }),

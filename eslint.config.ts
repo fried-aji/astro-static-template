@@ -56,6 +56,15 @@ export default defineConfig([
   },
   astro.configs['flat/jsx-a11y-recommended'],
   {
+    files: ['**/*.astro'],
+    languageOptions: {
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.astro'],
+      },
+    },
+  },
+  {
     languageOptions: {
       globals: {
         ...globals.builtin,
