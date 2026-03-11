@@ -85,11 +85,11 @@ import { Icon } from "astro-icon";
 以下のコマンドで`dist/`に出力します。
 
 ```shell
-npm run build
+pnpm run build
 ```
 
 HTMLを整形して出力したい場合は以下のコマンドを実行します。
 
 ```shell
-npm run build:beautify
+pnpm run build:beautify
 ```
